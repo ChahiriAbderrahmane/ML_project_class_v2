@@ -1,0 +1,4 @@
+project:
+    name: pr
+postgres:
+  port: 5433

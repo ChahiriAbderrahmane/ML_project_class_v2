@@ -1,0 +1,14 @@
+nyc_yellow_taxi_dwh:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: postgres-dbt   # use localhost when connecting from the host to the container
+      user: dbt_user
+      password: dbt_password
+      dbname: dwh_db
+      port: 5432       # mapped host port (host:container = 5434:5432 in docker-compose)
+      schema: public
+      threads: 4
+
+

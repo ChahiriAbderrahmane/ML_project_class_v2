@@ -1,0 +1,15 @@
+# DBT
+dbt-core==1.9.1
+dbt-postgres==1.9.1
+
+# Airflow providers
+apache-airflow-providers-postgres==5.10.0
+apache-airflow-providers-common-sql==1.14.0
+
+# Cosmos - version plus récente
+astronomer-cosmos==1.7.1
+
+# Dépendances
+protobuf>=5.0,<6.0
+opentelemetry-proto==1.28.0
+astro-run-dag

@@ -1,0 +1,51 @@
+name: 'nyc_yellow_taxi_dwh'
+version: '1.0.0'
+config-version: 2
+
+profile: 'nyc_yellow_taxi_dwh'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# Hooks globaux pour créer les schémas
+on-run-start:
+  - "CREATE SCHEMA IF NOT EXISTS bronze;"
+  - "CREATE SCHEMA IF NOT EXISTS silver;"
+  - "CREATE SCHEMA IF NOT EXISTS gold;"
+
+models:
+  nyc_yellow_taxi_dwh:
+    bronze:
+      +materialized: table
+      +schema: bronze
+
+    intermediate:
+      +materialized: table
+      +schema: silver
+
+    marts:
+      dims:
+        +materialized: table
+        +schema: gold
+      facts:
+        +materialized: table
+        +schema: gold
+      aggregates:
+        +materialized: view
+        +schema: gold
+        +tags: ['aggregate']  
+
+        
+
+seeds:
+  nyc_yellow_taxi_dwh:
+    +schema: bronze
+    +bulk_insert: true

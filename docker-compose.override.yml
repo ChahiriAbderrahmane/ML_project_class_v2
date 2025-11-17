@@ -1,0 +1,25 @@
+
+services:
+  # PostgreSQL pour dbt (base de données de travail)
+  postgres-dbt:
+    image: postgres:14
+    container_name: postgres-dbt
+    environment:
+      POSTGRES_USER: dbt_user
+      POSTGRES_PASSWORD: dbt_password
+      POSTGRES_DB: dwh_db
+    ports:
+      - "5434:5432"  # Exposé sur le port 5434 de l'hôte
+    volumes:
+      - postgres-dbt-data:/var/lib/postgresql/data
+    networks:
+      - airflow
+
+  # Le PostgreSQL pour Airflow est déjà fourni par Astro
+  # Vous n'avez pas besoin de le redéfinir
+
+volumes:
+  postgres-dbt-data:
+
+networks:
+  airflow:
